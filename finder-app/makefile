@@ -1,7 +1,7 @@
 CROSS_COMPILE ?=
 FILE_INFO = ../assignments/assignment2/fileresult.txt
 
-all: writer print_file_info
+all: writer 
 
 writer: 
 	$(CROSS_COMPILE)gcc -c writer.c -o writer.o
