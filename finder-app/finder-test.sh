@@ -35,8 +35,6 @@ MATCHSTR="The number of files are ${NUMFILES} and the number of matching lines a
 
 echo "Writing ${NUMFILES} files containing string ${WRITESTR} to ${ASSIGNMENT4WRITEDIR}"
 
-rm -rf "${ASSIGNMENT4WRITEDIR}"
-
 # create $ASSIGNMENT4WRITEDIR if not assignment1
 assignment=`cat ${ASSIGNMENT4CONFDIR}/assignment.txt`
 
@@ -62,9 +60,6 @@ do
 done
 
 OUTPUTSTRING=$($BINDIR/finder.sh "$ASSIGNMENT4WRITEDIR" "$WRITESTR")
-
-# remove temporary directories
-rm -rf "${ASSIGNMENT4WRITEDIR}"
 
 set +e
 echo ${OUTPUTSTRING} | grep "${MATCHSTR}"
