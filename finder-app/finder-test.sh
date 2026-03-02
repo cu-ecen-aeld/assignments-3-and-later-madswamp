@@ -10,6 +10,12 @@ WRITESTR=AELD_IS_FUN
 WRITEDIR=/tmp/aeld-data
 username=$(cat conf/username.txt)
 
+#Assignment 4 specific variables
+ASSIGNMENT4WRITEDIR=/tmp/assignment4-result.txt
+ASSIGNMENT4CONFDIR=/etc/finder-app/conf
+usernameASSIGNMENT4=$(cat $ASSIGNMENT4CONFDIR/username.txt)
+BINDIR=/usr/bin
+
 if [ $# -lt 3 ]
 then
 	echo "Using default value ${WRITESTR} for string to write"
@@ -22,28 +28,28 @@ then
 else
 	NUMFILES=$1
 	WRITESTR=$2
-	WRITEDIR=/tmp/aeld-data/$3
+	ASSIGNMENT4WRITEDIR=/tmp/assignment4-result.txt
 fi
 
 MATCHSTR="The number of files are ${NUMFILES} and the number of matching lines are ${NUMFILES}"
 
-echo "Writing ${NUMFILES} files containing string ${WRITESTR} to ${WRITEDIR}"
+echo "Writing ${NUMFILES} files containing string ${WRITESTR} to ${ASSIGNMENT4WRITEDIR}"
 
-rm -rf "${WRITEDIR}"
+rm -rf "${ASSIGNMENT4WRITEDIR}"
 
-# create $WRITEDIR if not assignment1
-assignment=`cat ./conf/assignment.txt`
+# create $ASSIGNMENT4WRITEDIR if not assignment1
+assignment=`cat ${ASSIGNMENT4CONFDIR}/assignment.txt`
 
 if [ $assignment != 'assignment1' ]
 then
-	mkdir -p "$WRITEDIR"
+	mkdir -p "$ASSIGNMENT4WRITEDIR"
 
-	#The WRITEDIR is in quotes because if the directory path consists of spaces, then variable substitution will consider it as multiple argument.
-	#The quotes signify that the entire string in WRITEDIR is a single string.
+	#The ASSIGNMENT4WRITEDIR is in quotes because if the directory path consists of spaces, then variable substitution will consider it as multiple argument.
+	#The quotes signify that the entire string in ASSIGNMENT4WRITEDIR is a single string.
 	#This issue can also be resolved by using double square brackets i.e [[ ]] instead of using quotes.
-	if [ -d "$WRITEDIR" ]
+	if [ -d "$ASSIGNMENT4WRITEDIR" ]
 	then
-		echo "$WRITEDIR created"
+		echo "$ASSIGNMENT4WRITEDIR created"
 	else
 		exit 1
 	fi
@@ -52,13 +58,13 @@ fi
 
 for i in $( seq 1 $NUMFILES)
 do
-	./writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	$BINDIR/writer "$ASSIGNMENT4WRITEDIR/${usernameASSIGNMENT4}$i.txt" "$WRITESTR"
 done
 
-OUTPUTSTRING=$(./finder.sh "$WRITEDIR" "$WRITESTR")
+OUTPUTSTRING=$($BINDIR/finder.sh "$ASSIGNMENT4WRITEDIR" "$WRITESTR")
 
 # remove temporary directories
-rm -rf /tmp/aeld-data
+rm -rf "${ASSIGNMENT4WRITEDIR}"
 
 set +e
 echo ${OUTPUTSTRING} | grep "${MATCHSTR}"
