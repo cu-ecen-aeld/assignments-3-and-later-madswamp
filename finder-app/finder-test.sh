@@ -8,7 +8,7 @@ set -u
 NUMFILES=10
 WRITESTR=AELD_IS_FUN
 WRITEDIR=/tmp/aeld-data
-username=$(cat conf/username.txt)
+#username=$(cat conf/username.txt)
 
 #Assignment 4 specific variables
 ASSIGNMENT4WRITEDIR=/tmp/assignment4-result.txt
