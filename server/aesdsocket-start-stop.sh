@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/sh
+set -e
 
 DAEMON="/usr/bin/aesdsocket"
 DAEMON_ARGS="-d"
